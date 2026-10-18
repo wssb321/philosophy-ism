@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "node --test --test-isolation=none"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
   }
 }
-

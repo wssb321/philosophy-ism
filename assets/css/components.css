@@ -3,11 +3,11 @@
   top: 0;
   z-index: 20;
   border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  background: var(--bg);
   backdrop-filter: blur(14px);
 }
 
-:root[data-theme="dark"] .site-header { background: color-mix(in srgb, var(--bg) 94%, transparent); }
+:root[data-theme="dark"] .site-header { background: var(--bg); }
 
 .nav-wrap {
   min-height: 68px;
@@ -55,8 +55,8 @@
 }
 
 .icon-button {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  min-height: 44px;
   display: inline-grid;
   place-items: center;
   border: 1px solid var(--border);
@@ -68,7 +68,7 @@
 }
 
 .icon-button:hover { border-color: var(--blue); background: var(--surface-soft); }
-.icon-button:focus-visible,.button:focus-visible,.text-button:focus-visible,.form-control:focus-visible { outline: 3px solid color-mix(in srgb, var(--umber) 60%, transparent); outline-offset: 3px; }
+.icon-button:focus-visible,.button:focus-visible,.text-button:focus-visible,.form-control:focus-visible { outline: 3px solid rgba(154, 87, 53, .6); outline-offset: 3px; }
 
 .menu-button { display: none; }
 
@@ -92,12 +92,12 @@ button.button {
 
 .button:hover { background: var(--blue-strong); transform: translateY(-1px); }
 .button.secondary { background: transparent; color: var(--blue); }
-.button.secondary:hover { background: color-mix(in srgb, var(--blue) 8%, transparent); }
+.button.secondary:hover { background: rgba(49, 91, 121, .08); }
 .button.umber { border-color: var(--umber); background: var(--umber); }
 .button.danger { border-color: var(--danger); background: var(--danger); color: #fff; }
 .button:disabled,.button[aria-disabled="true"] { opacity: .45; cursor: not-allowed; transform: none; }
 
-.text-button { padding: .25rem 0; border: 0; background: transparent; color: var(--blue); cursor: pointer; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; }
+.text-button { min-height: 44px; padding: .25rem 0; border: 0; background: transparent; color: var(--blue); cursor: pointer; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; }
 .text-button.danger { color: var(--danger); }
 
 .form-control {
@@ -110,8 +110,8 @@ button.button {
   color: var(--ink);
   transition: border-color var(--motion-fast), box-shadow var(--motion-fast), background var(--motion-fast);
 }
-.form-control:hover { border-color: color-mix(in srgb, var(--blue) 55%, var(--border)); }
-.form-control:focus { border-color: var(--blue); box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 12%, transparent); }
+.form-control:hover { border-color: #718a9d; }
+.form-control:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(49, 91, 121, .12); }
 
 .page-intro { padding: var(--space-section) 0 clamp(2.8rem, 6vw, 5rem); }
 .page-intro .eyebrow { margin-bottom: 1.1rem; color: var(--umber); font-size: .78rem; font-weight: 700; letter-spacing: .16em; }
@@ -133,7 +133,7 @@ button.button {
 .site-footer {
   margin-top: 6rem;
   border-top: 1px solid var(--border);
-  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  background: var(--surface);
 }
 
 .footer-wrap {

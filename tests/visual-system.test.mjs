@@ -68,3 +68,26 @@ test('tool pages expose the approved workbench and private archive shells', asyn
   assert.match(history, /class="container history-archive" data-history/);
   assert.match(history, /assets\/js\/history\.js/);
 });
+
+test('instant and historical results share the philosophy report structure', async () => {
+  const [html, resultSource, historySource] = await Promise.all([
+    read('results.html'), read('assets/js/results.js'), read('assets/js/history-result.js'),
+  ]);
+  assert.match(html, /<body class="result-history-page">/);
+  assert.match(html, /data-result-root/);
+  ['result-report', 'result-summary', 'result-grid', 'result-interpretation', 'related-results', 'result-actions']
+    .forEach((hook) => assert.ok(resultSource.includes(hook), `missing ${hook}`));
+  assert.match(historySource, /renderResults\(root, model\)/);
+  assert.match(historySource, /history-result-back/);
+});
+
+test('responsive layers protect narrow screens, zoomed text, and reduced motion', async () => {
+  const [base, components, pages, assessment, results] = await Promise.all([
+    'assets/css/base.css', 'assets/css/components.css', 'assets/css/pages.css',
+    'assets/css/test.css', 'assets/css/results.css',
+  ].map(read));
+  assert.match(base, /overflow-wrap:\s*anywhere/);
+  assert.match(base, /prefers-reduced-motion/);
+  [components, pages, assessment, results].forEach((css) => assert.match(css, /@media\s*\(max-width:/));
+  assert.match(components, /min-height:\s*44px/);
+});

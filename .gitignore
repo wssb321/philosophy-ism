@@ -4,4 +4,6 @@ node_modules/
 Thumbs.db
 docs/qa/screenshots/
 .playwright-mcp/
+.vercel/
+.env*.local
 

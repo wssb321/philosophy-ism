@@ -6,7 +6,7 @@
 
 .test-main { min-height: calc(100vh - 180px); position: relative; overflow: hidden; }
 .test-main::before { width: min(54vw, 740px); aspect-ratio: 1; position: absolute; z-index: -1; top: 4rem; right: -20vw; border: 1px solid rgb(var(--test-accent-rgb) / 20%); border-radius: 50%; content: ""; }
-.test-notice { margin-top: 1.25rem; border-left-color: var(--test-accent); background: color-mix(in srgb, var(--surface-soft) 82%, transparent); }
+.test-notice { margin-top: 1.25rem; border-left-color: var(--test-accent); background: var(--surface-soft); }
 .test-shell { width: min(100% - 2 * var(--gutter), 920px); margin: 0 auto; padding: clamp(3rem, 8vw, 7rem) 0 clamp(5rem, 10vw, 8rem); }
 .test-question { min-height: 300px; display: flex; flex-direction: column; justify-content: flex-end; }
 .test-progress { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }

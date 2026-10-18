@@ -8,6 +8,7 @@ const requiredFiles = [
   'quote.html',
   'simulator.html',
   'history.html',
+  'results.html',
   'about.html',
   'mindset/index.html',
   'philosophy/index.html',
@@ -20,5 +21,5 @@ const requiredFiles = [
 
 test('the static site exposes every planned entry point', async () => {
   await Promise.all(requiredFiles.map((file) => access(file)));
-  assert.equal(requiredFiles.length, 13);
+  assert.equal(requiredFiles.length, 14);
 });

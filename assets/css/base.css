@@ -53,6 +53,7 @@ body {
   color: var(--ink);
   font-size: 16px;
   line-height: 1.75;
+  overflow-wrap: anywhere;
   text-rendering: optimizeLegibility;
 }
 
@@ -96,7 +97,7 @@ main { min-height: 50vh; }
 }
 
 :focus-visible { outline: 3px solid var(--umber); outline-offset: 3px; }
-::selection { background: color-mix(in srgb, var(--blue) 24%, transparent); color: var(--ink); }
+::selection { background: rgba(49, 91, 121, .24); color: var(--ink); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }

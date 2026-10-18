@@ -5,7 +5,7 @@ import { QUOTES } from '../assets/data/quotes.js';
 
 const requiredTerms = [
   '形而上学', '唯物主义', '唯心主义', '理性主义', '经验主义', '自由意志论', '决定论', '一元论', '二元论', '本体论', '认识论',
-  '存在主义', '虚无主义', '斯多葛主义', '实用主义', '本质主义', '理想主义',
+  '存在主义', '虚无主义', '斯多葛主义', '实用主义', '本质主义', '理想主义', '荒诞主义', '伊壁鸠鲁主义', '人文主义', '享乐主义',
   '共产主义', '资本主义', '民主社会主义', '社会民主主义', '古典自由主义', '自由意志主义', '保守主义', '无政府主义', '无政府共产主义',
   '功利主义', '义务论', '德性伦理学', '关怀伦理学',
   '规则任务导向（学生思维倾向）', '目标结果导向', '外部评价驱动', '内部自洽驱动', '风险规避', '试错思维', '线性思维', '系统思维',
@@ -21,6 +21,23 @@ test('the metaphysics note distinguishes the two definitions', () => {
   assert.match(METAPHYSICS_NOTE, /西方哲学本义/);
   assert.match(METAPHYSICS_NOTE, /孤立、静止、片面/);
   assert.match(METAPHYSICS_NOTE, /二者无关/);
+});
+
+test('every lexicon entry carries a four-part plain-language version', () => {
+  LEXICON_ENTRIES.forEach((entry) => {
+    assert.ok(entry.plain, `missing plain for ${entry.id}`);
+    ['say', 'example', 'claim', 'confusion'].forEach((key) => {
+      assert.ok(entry.plain[key] && entry.plain[key].length >= 10, `plain.${key} too short for ${entry.id}`);
+    });
+  });
+});
+
+test('new life philosophy entries explain their closest confusion neutrally', () => {
+  const entries = Object.fromEntries(LEXICON_ENTRIES.map((entry) => [entry.id, entry]));
+  assert.match(entries.absurdism.plain.confusion, /虚无主义/);
+  assert.match(entries.epicureanism.plain.confusion, /享乐主义/);
+  assert.doesNotMatch(entries.humanism.definition, /乐观主义/);
+  assert.doesNotMatch(entries.hedonism.definition, /放纵/);
 });
 
 test('quotes always identify an author and a source or translation status', () => {

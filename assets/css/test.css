@@ -1,13 +1,45 @@
-.test-main { min-height: calc(100vh - 180px); }
-.test-notice { margin-top: 1.25rem; }
-.test-shell { width: min(100% - 2 * var(--gutter), 980px); margin: 0 auto; padding: clamp(3rem, 8vw, 7rem) 0; }
-.test-kicker { color: var(--umber); font: 600 .9rem var(--font-ui); letter-spacing: .08em; }
-.test-shell h1 { max-width: 24ch; margin-top: 2.5rem; font-size: clamp(1.85rem, 4.5vw, 3.45rem); line-height: 1.45; }
-.progress-meta { display: flex; justify-content: space-between; margin-top: 2rem; color: var(--muted); font-size: .88rem; }
-.progress-track { height: 3px; margin: .65rem 0 2.4rem; overflow: hidden; background: var(--border); }.progress-track span { display: block; height: 100%; background: var(--blue); transition: width .2s ease; }
-.answer-list { display: grid; gap: .65rem; margin: 0; padding: 0; border: 0; }
-.answer-option { min-height: 58px; display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; padding: .75rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); cursor: pointer; }
-.answer-option:hover,.answer-option.selected { border-color: var(--blue); background: color-mix(in srgb, var(--blue) 8%, var(--surface)); }.answer-option input { width: 20px; height: 20px; accent-color: var(--blue); }.answer-option kbd { min-width: 1.8rem; padding: .2rem; border: 0; border-radius: 3px; background: var(--surface-soft); color: var(--muted); text-align: center; }
-.test-actions { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; }.text-button { border: 0; background: transparent; color: var(--blue); cursor: pointer; }.text-button:disabled { opacity: .35; cursor: default; }.storage-message { color: var(--umber); font-size: .85rem; }
-@media (max-width: 620px) { .test-shell { padding-top: 2.5rem; }.test-shell h1 { margin-top: 1.5rem; }.answer-option { min-height: 54px; }.test-actions { align-items: stretch; flex-direction: column-reverse; }.test-actions .button { width: 100%; } }
+.test-page { --test-accent: var(--blue); --test-accent-rgb: 49 91 121; }
+.test-philosophy { --test-accent: var(--umber); --test-accent-rgb: 154 87 53; }
+.test-metaphysics { --test-accent: #596d78; --test-accent-rgb: 89 109 120; }
+.test-politics { --test-accent: #8b663c; --test-accent-rgb: 139 102 60; }
+.test-ethics { --test-accent: #5f735f; --test-accent-rgb: 95 115 95; }
 
+.test-main { min-height: calc(100vh - 180px); position: relative; overflow: hidden; }
+.test-main::before { width: min(54vw, 740px); aspect-ratio: 1; position: absolute; z-index: -1; top: 4rem; right: -20vw; border: 1px solid rgb(var(--test-accent-rgb) / 20%); border-radius: 50%; content: ""; }
+.test-notice { margin-top: 1.25rem; border-left-color: var(--test-accent); background: color-mix(in srgb, var(--surface-soft) 82%, transparent); }
+.test-shell { width: min(100% - 2 * var(--gutter), 920px); margin: 0 auto; padding: clamp(3rem, 8vw, 7rem) 0 clamp(5rem, 10vw, 8rem); }
+.test-question { min-height: 300px; display: flex; flex-direction: column; justify-content: flex-end; }
+.test-progress { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.test-kicker { margin: 0; color: var(--test-accent); font: 700 .78rem var(--font-ui); letter-spacing: .14em; }
+.question-index { margin: 0; color: var(--muted); font: .88rem var(--font-display); letter-spacing: .08em; }.question-index span { color: var(--test-accent); font-size: 1.5rem; }
+.test-shell h1 { max-width: 23ch; margin: clamp(2rem, 5vw, 3.5rem) 0; font-size: clamp(2rem, 4.2vw, 3.7rem); line-height: 1.42; }
+.progress-meta { display: flex; justify-content: space-between; color: var(--muted); font-size: .82rem; }
+.progress-track { height: 2px; margin: .7rem 0 clamp(2rem, 5vw, 3.6rem); overflow: hidden; background: var(--border); }.progress-track span { display: block; height: 100%; background: var(--test-accent); transition: width var(--motion-fast); }
+.answer-list { display: grid; margin: 0; padding: 0; border: 0; border-top: 1px solid var(--border); }
+.answer-option { min-height: 72px; display: grid; grid-template-columns: auto 1fr auto; gap: 1.1rem; align-items: center; padding: .9rem 1rem; border: 0; border-bottom: 1px solid var(--border); background: transparent; cursor: pointer; transition: padding var(--motion-fast), background var(--motion-fast), color var(--motion-fast); }
+.answer-option:hover { padding-inline: 1.35rem .65rem; background: rgb(var(--test-accent-rgb) / 7%); }
+.answer-option.selected { background: rgb(var(--test-accent-rgb) / 10%); color: var(--test-accent); }
+.answer-option:focus-within { outline: 2px solid var(--test-accent); outline-offset: -2px; }
+.answer-option input { width: 19px; height: 19px; margin: 0; accent-color: var(--test-accent); }
+.answer-option > span { font-size: 1rem; }
+.answer-option kbd { min-width: 2rem; padding: .25rem; border: 1px solid var(--border); border-radius: 2px; background: var(--surface); color: var(--muted); font: .76rem var(--font-ui); text-align: center; }
+.keyboard-hint { margin: 1rem 0 0; color: var(--muted); font-size: .76rem; text-align: right; }
+.test-actions { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2.2rem; padding-top: 1.4rem; border-top: 1px solid var(--border); }
+.test-actions .button { min-width: 150px; border-color: var(--test-accent); background: var(--test-accent); }
+.text-button { padding: .7rem 0; border: 0; background: transparent; color: var(--test-accent); cursor: pointer; }.text-button:disabled { opacity: .35; cursor: default; }
+.storage-message { min-height: 1.4em; margin-top: 1rem; color: var(--umber); font-size: .85rem; }
+
+:root[data-theme="dark"] .answer-option:hover,:root[data-theme="dark"] .answer-option.selected { background: rgb(var(--test-accent-rgb) / 18%); }
+:root[data-theme="dark"] .test-actions .button { color: #fff; }
+
+@media (max-width: 620px) {
+  .test-main::before { width: 100vw; right: -58vw; }
+  .test-shell { padding-top: 2.5rem; }
+  .test-question { min-height: 245px; }
+  .test-shell h1 { margin: 1.8rem 0; font-size: clamp(1.8rem, 8.5vw, 2.65rem); }
+  .answer-option { min-height: 62px; padding-inline: .5rem; }
+  .answer-option:hover { padding-inline: .8rem .2rem; }
+  .keyboard-hint { display: none; }
+  .test-actions { align-items: stretch; flex-direction: column-reverse; }
+  .test-actions .button,.test-actions .text-button { width: 100%; }
+}

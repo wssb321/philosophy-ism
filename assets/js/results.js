@@ -1,3 +1,5 @@
+import { exportResultImage } from './export-image.js';
+
 function withLink(match) {
   return { ...match, matchLabel: `模型匹配度 ${Math.round(match.match)}%`, lexiconHref: match.lexiconId ? `../lexicon.html#${match.lexiconId}` : '../lexicon.html' };
 }
@@ -18,7 +20,7 @@ function dimensionRow(dimension) {
 
 export function renderResults(root, model, chartFactory = globalThis.Chart) {
   const title = model.primary ? `你的综合倾向：${model.primary.name}` : '你的思想维度坐标';
-  root.innerHTML = `<section class="result-page"><div class="result-capture" data-result-capture><header class="result-heading"><p>${model.testTitle}</p><h1>${title}</h1>${model.primary ? `<strong>${model.primary.matchLabel}</strong><p>${model.primary.description}</p>` : '<p>以下结果分别描述四个独立维度，不合并为唯一身份标签。</p>'}</header><div class="result-grid"><div class="chart-frame"><canvas data-result-chart aria-label="测评维度雷达图"></canvas><p class="chart-fallback" data-chart-fallback hidden>图表未能加载，下方文字分数仍为完整结果。</p></div><div><h2>维度得分</h2><ul class="score-list">${model.dimensions.map(dimensionRow).join('')}</ul></div></div>${model.primary ? `<section class="result-copy"><h2>结果解读</h2><p>${model.primary.longDescription ?? model.primary.description}</p><a href="${model.primary.lexiconHref}">阅读“${model.primary.name}”百科词条 →</a></section>` : ''}${model.related.length ? `<section class="related-results"><h2>相近的哲学倾向</h2><ol>${model.related.map((item) => `<li><a href="${item.lexiconHref}"><strong>${item.name}</strong><span>${item.matchLabel}</span></a><p>${item.description}</p></li>`).join('')}</ol></section>` : ''}<p class="export-disclaimer">${model.disclaimer}</p></div><div class="result-actions"><button class="button umber" type="button" data-export-result>保存结果图片</button><button class="button secondary" type="button" data-restart-test>重新测试</button></div></section>`;
+  root.innerHTML = `<section class="result-page"><div class="result-capture" data-result-capture><header class="result-heading"><p>${model.testTitle}</p><h1>${title}</h1>${model.primary ? `<strong>${model.primary.matchLabel}</strong><p>${model.primary.description}</p>` : '<p>以下结果分别描述四个独立维度，不合并为唯一身份标签。</p>'}</header><div class="result-grid"><div class="chart-frame"><canvas data-result-chart aria-label="测评维度雷达图"></canvas><p class="chart-fallback" data-chart-fallback hidden>图表未能加载，下方文字分数仍为完整结果。</p></div><div><h2>维度得分</h2><ul class="score-list">${model.dimensions.map(dimensionRow).join('')}</ul></div></div>${model.primary ? `<section class="result-copy"><h2>结果解读</h2><p>${model.primary.longDescription ?? model.primary.description}</p><a href="${model.primary.lexiconHref}">阅读“${model.primary.name}”百科词条 →</a></section>` : ''}${model.related.length ? `<section class="related-results"><h2>相近的哲学倾向</h2><ol>${model.related.map((item) => `<li><a href="${item.lexiconHref}"><strong>${item.name}</strong><span>${item.matchLabel}</span></a><p>${item.description}</p></li>`).join('')}</ol></section>` : ''}<p class="export-disclaimer">${model.disclaimer}</p></div><div class="result-actions"><button class="button umber" type="button" data-export-result>保存结果图片</button><button class="button secondary" type="button" data-restart-test>重新测试</button><p class="export-status" data-export-status role="status"></p></div></section>`;
 
   const canvas = root.querySelector('[data-result-chart]');
   const fallback = root.querySelector('[data-chart-fallback]');
@@ -34,5 +36,15 @@ export function renderResults(root, model, chartFactory = globalThis.Chart) {
     canvas.hidden = true;
     fallback.hidden = false;
   }
+
+  const exportButton = root.querySelector('[data-export-result]');
+  const exportStatus = root.querySelector('[data-export-status]');
+  exportButton.addEventListener('click', async () => {
+    exportButton.disabled = true;
+    exportStatus.textContent = '正在生成高清图片…';
+    const result = await exportResultImage(root.querySelector('[data-result-capture]'), { filename:`哲学主义-${model.primary?.name ?? '思想维度坐标'}` });
+    exportButton.disabled = false;
+    exportStatus.textContent = result.ok ? '图片已保存。' : `生成失败：${result.error} 可使用浏览器打印或系统截图保存。`;
+  });
 }
 

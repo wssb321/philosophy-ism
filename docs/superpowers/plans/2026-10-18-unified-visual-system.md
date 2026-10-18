@@ -22,10 +22,11 @@
 
 ## Review Focus
 
-- 320 像素下长问题、长词条和操作按钮必须自然换行且无横向溢出；由 Task 2、Task 4 和 Task 6 的静态断言及浏览器检查覆盖。
-- 深色模式下表单、选项、历史条目、图表标签与结果导出必须保持对比度；由 Task 1、Task 3、Task 5 和 Task 6 覆盖。
-- 现有本地历史和历史结果链接不得因新类名或结构变化失效；由 Task 3 和 Task 5 的原测试及浏览器路径覆盖。
-- Chart.js 或 html2canvas 不可用时，文字结果、分数与失败提示必须仍可阅读；由 Task 3、Task 5 和 Task 6 覆盖。
+- 320 像素下长问题、长词条和操作按钮必须自然换行且无横向溢出；由 Task 3、Task 5 和 Task 7 的静态断言及浏览器检查覆盖。
+- 深色模式下表单、选项、历史条目、图表标签与结果导出必须保持对比度；由 Task 1、Task 4、Task 5、Task 6 和 Task 7 覆盖。
+- 现有本地历史和历史结果链接不得因新类名或结构变化失效；由 Task 4 和 Task 6 的原测试及浏览器路径覆盖。
+- Chart.js 或 html2canvas 不可用时，文字结果、分数与失败提示必须仍可阅读；由 Task 4、Task 6 和 Task 7 覆盖。
+- 四个新增人生哲学流派必须具备完整坐标、百科内容和稳定的模拟器匹配；由 Task 2 的目录、内容、模拟器和链接测试覆盖。
 - 用户现有未提交修改不得被覆盖或误提交；每个任务的提交步骤都要求交互式暂存与缓存差异检查。
 
 ---
@@ -78,7 +79,59 @@ Expected: 新测试 PASS；全量测试 0 failures。
 
 使用 `git add -p` 只暂存本任务片段和新测试，运行 `git diff --cached --check` 并确认缓存差异不包含用户原有修改，然后提交：`feat: unify site visual foundation`。
 
-### Task 2: 百科、名言与关于页面
+### Task 2: 人生哲学内容、匹配模型与首页延伸区
+
+**Files:**
+- Modify: `philosophy/definition.js`
+- Modify: `assets/data/lexicon.js`
+- Modify: `index.html`
+- Modify: `assets/css/pages.css`
+- Modify: `tests/philosophy-catalog.test.mjs`
+- Modify: `tests/content.test.mjs`
+- Modify: `tests/simulator.test.mjs`
+- Modify: `tests/visual-system.test.mjs`
+
+**Interfaces:**
+- Consumes: 现有六条人生哲学维度、`calculateMatches(scores, ideologies)`、百科条目格式和 Task 1 的共享令牌。
+- Produces: 十个流派的 `PHILOSOPHY_TEST.ideologies`、四个新百科锚点和首页 `.philosophy-spectrum` 内容区；结果页与模拟器无需新匹配算法即可消费。
+
+- [ ] **Step 1: 编写新增流派失败测试**
+
+在 `tests/philosophy-catalog.test.mjs` 中将预期流派列表扩展为十个，并逐项断言四个新增流派拥有规格中的六维坐标；在 `tests/content.test.mjs` 中将荒诞主义、伊壁鸠鲁主义、人文主义和享乐主义加入必需词条并断言四段通俗解释；在 `tests/simulator.test.mjs` 中断言以每个新增流派坐标作为模拟状态时，该流派匹配结果为第一名；在 `tests/visual-system.test.mjs` 中断言首页延伸区标题和百科／测试／模拟器入口存在。
+
+- [ ] **Step 2: 运行测试确认失败**
+
+Run: `node --test --test-isolation=none tests/philosophy-catalog.test.mjs tests/content.test.mjs tests/simulator.test.mjs tests/visual-system.test.mjs`
+
+Expected: FAIL，报告缺少四个流派、百科条目和首页延伸区。
+
+- [ ] **Step 3: 增加四个百科词条**
+
+在 `assets/data/lexicon.js` 中按现有对象格式增加 `absurdism`、`epicureanism`、`humanism`、`hedonism`；每项包含人生哲学类别、定义、核心主张、概念区分、关键词和 `plain.say`、`plain.example`、`plain.claim`、`plain.confusion`。文案遵守规格中的四项概念区分要求。
+
+- [ ] **Step 4: 扩展人生哲学参考坐标**
+
+在 `philosophy/definition.js` 的 `ideologies` 末尾增加：荒诞主义 `82/88/58/55/72/76`、伊壁鸠鲁主义 `48/48/22/70/56/38`、人文主义 `72/42/82/54/82/62`、享乐主义 `58/66/42/86/64/55`，维度顺序严格对应规格表。保留 36 道问题、题目 effects、六个维度和版本号不变。
+
+- [ ] **Step 5: 增加首页思想光谱区域**
+
+在 `index.html` 的现有宣言区之后增加 `.philosophy-spectrum`：标题固定为“十种人生哲学，一组思想坐标”，用开放式四列编辑排版展示四个新增流派的简短说明，并提供人生哲学测试、主义百科和立场模拟器三个真实链接。在 `pages.css` 中提供桌面、平板、手机和暗色规则，不改变页头、英雄区、五类测试带和宣言区。
+
+- [ ] **Step 6: 运行内容、匹配和全量测试**
+
+Run: `node --test --test-isolation=none tests/philosophy-catalog.test.mjs tests/content.test.mjs tests/simulator.test.mjs tests/visual-system.test.mjs tests/site-links.test.mjs && npm test`
+
+Expected: 全部 PASS；人生哲学仍为 36 道平衡题目、六条维度、十个完整流派。
+
+- [ ] **Step 7: 浏览器检查新增内容路径**
+
+在首页确认新增区域位于宣言区之后且首屏保持不变；在百科搜索四个新词条并展开通俗解释；在模拟器分别设置四组参考坐标并确认对应流派排首位；检查 320 像素和深色模式。
+
+- [ ] **Step 8: 提交任务**
+
+交互式暂存本任务片段，检查缓存差异后提交：`feat: expand life philosophy spectrum`。
+
+### Task 3: 百科、名言与关于页面
 
 **Files:**
 - Modify: `lexicon.html`
@@ -90,7 +143,7 @@ Expected: 新测试 PASS；全量测试 0 failures。
 - Modify: `tests/visual-system.test.mjs`
 
 **Interfaces:**
-- Consumes: Task 1 的 `.page-intro`、表单、按钮、提示、分隔线和主题令牌。
+- Consumes: Task 1 的 `.page-intro`、表单、按钮、提示、分隔线和主题令牌；Task 2 的十个流派百科数据。
 - Produces: `.lexicon-page`、`.lexicon-toolbar`、`.lexicon-entry`、`.quote-stage`、`.article-page` 页面结构，后续 QA 直接按这些选择器定位。
 
 - [ ] **Step 1: 添加内容页面结构失败测试**
@@ -129,7 +182,7 @@ Expected: 全部 PASS；无断链、空链接或占位文案。
 
 交互式暂存本任务片段，检查缓存差异后提交：`feat: restyle editorial content pages`。
 
-### Task 3: 模拟器与历史档案页面
+### Task 4: 模拟器与历史档案页面
 
 **Files:**
 - Modify: `simulator.html`
@@ -141,7 +194,7 @@ Expected: 全部 PASS；无断链、空链接或占位文案。
 - Test: `tests/history.test.mjs`
 
 **Interfaces:**
-- Consumes: Task 1 的页面引言、表单、按钮、状态与主题令牌；现有 `PHILOSOPHY_TEST` 和历史存储接口。
+- Consumes: Task 1 的页面引言、表单、按钮、状态与主题令牌；Task 2 的十流派 `PHILOSOPHY_TEST` 和现有历史存储接口。
 - Produces: `.simulator-workbench`、`.simulator-panel`、`.simulator-result`、`.history-archive`、`.history-card`，不改变数据结构。
 
 - [ ] **Step 1: 添加工具页面结构和安全渲染失败测试**
@@ -176,7 +229,7 @@ Expected: 全部 PASS，0 failures。
 
 交互式暂存并检查缓存差异后提交：`feat: restyle philosophy tools and history`。
 
-### Task 4: 五套测评流程
+### Task 5: 五套测评流程
 
 **Files:**
 - Modify: `assets/css/test.css`
@@ -229,7 +282,7 @@ Expected: 所有测试 PASS，题目数量、计分和存储测试无回退。
 
 交互式暂存并检查缓存差异后提交：`feat: unify assessment experience`。
 
-### Task 5: 即时结果、历史结果与导出报告
+### Task 6: 即时结果、历史结果与导出报告
 
 **Files:**
 - Modify: `results.html`
@@ -241,7 +294,7 @@ Expected: 所有测试 PASS，题目数量、计分和存储测试无回退。
 - Test: `tests/export-image.test.mjs`
 
 **Interfaces:**
-- Consumes: Task 1 的令牌和按钮；Task 4 生成的结果模型；现有 Chart.js、html2canvas 和历史记录接口。
+- Consumes: Task 1 的令牌和按钮；Task 5 生成的结果模型；现有 Chart.js、html2canvas 和历史记录接口。
 - Produces: `.result-report`、`.result-summary`、`.result-grid`、`.result-interpretation`、`.related-results`、`.result-actions`；导出接口和数据属性保持兼容。
 
 - [ ] **Step 1: 添加报告结构失败测试**
@@ -280,7 +333,7 @@ Expected: 全部 PASS；导出并发、失败恢复和免责声明测试无回�
 
 交互式暂存并检查缓存差异后提交：`feat: redesign philosophy result reports`。
 
-### Task 6: 跨页面响应式、深色模式与设计 QA
+### Task 7: 跨页面响应式、深色模式与设计 QA
 
 **Files:**
 - Modify: `assets/css/base.css`
@@ -293,7 +346,7 @@ Expected: 全部 PASS；导出并发、失败恢复和免责声明测试无回�
 - Modify: `tests/visual-system.test.mjs`
 
 **Interfaces:**
-- Consumes: Tasks 1–5 的全部页面类和状态。
+- Consumes: Tasks 1–6 的全部页面类和状态。
 - Produces: 经桌面、平板、手机、浅色、深色和关键交互验证的可发布整站视觉系统。
 
 - [ ] **Step 1: 添加跨页面保护测试**
@@ -344,4 +397,5 @@ Expected: 无空白错误；CRLF 提示不视为失败。
 - `git diff --check` 无错误。
 - IAB 在四个规定视口、浅色和深色下完成页面矩阵检查，控制台无错误或警告。
 - 百科搜索／筛选、名言切换、模拟器滑块、测评流程、历史查看／删除、结果图表和导出均真实工作。
+- 四个新增人生哲学词条可搜索、可跳转、可参与测试结果与模拟器匹配；首页延伸区三个入口均有效。
 - `docs/qa/unified-visual-system-ledger.md` 记录无未解决 P0、P1、P2 问题。

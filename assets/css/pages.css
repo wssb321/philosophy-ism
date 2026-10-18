@@ -1,0 +1,14 @@
+.page-hero {
+  padding: clamp(4rem, 9vw, 8rem) 0 3.5rem;
+}
+
+.page-hero h1 { max-width: 15ch; }
+.page-hero p { max-width: 58ch; color: var(--muted); font-size: 1.1rem; }
+
+.placeholder {
+  min-height: 40vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+

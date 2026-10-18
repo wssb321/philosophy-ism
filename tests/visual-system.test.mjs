@@ -35,3 +35,26 @@ test('homepage extends the approved hero with a ten-philosophy spectrum', async 
   ['philosophy/', 'lexicon.html', 'simulator.html'].forEach((href) => assert.match(html, new RegExp(`href="${href.replace('.', '\\.')}"`)));
   ['荒诞主义', '伊壁鸠鲁主义', '人文主义', '享乐主义'].forEach((name) => assert.match(html, new RegExp(name)));
 });
+
+test('editorial pages expose distinct readable layouts and keep their scripts', async () => {
+  const [lexicon, quote, about] = await Promise.all(['lexicon.html', 'quote.html', 'about.html'].map(read));
+  assert.match(lexicon, /<body class="lexicon-page">/);
+  assert.match(lexicon, /class="container page-intro lexicon-intro"/);
+  assert.match(lexicon, /class="container lexicon-toolbar"/);
+  assert.match(lexicon, /assets\/js\/lexicon\.js/);
+  assert.match(quote, /<body class="quote-page-shell">/);
+  assert.match(quote, /class="quote-stage"/);
+  assert.match(quote, /assets\/js\/quotes\.js/);
+  assert.match(about, /<body class="about-page">/);
+  assert.match(about, /class="container article-page"/);
+  assert.match(about, /class="section-number"/);
+});
+
+test('lexicon and quote renderers expose editorial state hooks', async () => {
+  const [lexiconSource, quoteSource] = await Promise.all([read('assets/js/lexicon.js'), read('assets/js/quotes.js')]);
+  assert.match(lexiconSource, /entry-index/);
+  assert.match(lexiconSource, /entry-header/);
+  assert.match(lexiconSource, /entry-plain/);
+  assert.match(quoteSource, /\[data-new-quote\]/);
+  assert.match(quoteSource, /is-changing/);
+});

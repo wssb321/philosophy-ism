@@ -9,11 +9,14 @@ if (typeof document !== 'undefined') {
   const text = document.querySelector('[data-quote-text]');
   const author = document.querySelector('[data-quote-author]');
   const source = document.querySelector('[data-quote-source]');
+  const stage = document.querySelector('.quote-stage');
   const show = () => {
     const quote = pickQuote(QUOTES);
+    stage?.classList.add('is-changing');
     text.textContent = `“${quote.text}”`;
     author.textContent = quote.author;
     source.textContent = quote.source;
+    globalThis.requestAnimationFrame?.(() => stage?.classList.remove('is-changing'));
   };
   document.querySelector('[data-new-quote]')?.addEventListener('click', show);
   show();

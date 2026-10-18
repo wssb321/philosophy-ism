@@ -35,7 +35,25 @@
 .metaphysics-note { margin-bottom: 3rem; }.lexicon-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); border-top: 1px solid var(--border); }.lexicon-entry { padding: 2.2rem 2rem 2.2rem 0; border-bottom: 1px solid var(--border); scroll-margin-top: 90px; }.lexicon-entry:nth-child(even) { padding-right: 0; padding-left: 2rem; border-left: 1px solid var(--border); }.lexicon-entry h2 { font-size: 1.8rem; }.lexicon-entry p { margin-bottom: .55rem; color: var(--muted); }.entry-category { color: var(--umber); font-size: .78rem; letter-spacing: .08em; }.empty-state { padding: 4rem 0; text-align: center; }
 .quote-page { min-height: calc(100vh - 180px); display: grid; place-items: center; padding: 6rem 0 2rem; }.quote-stage { max-width: 980px; text-align: center; }.quote-mark { height: 70px; color: var(--umber); font: 8rem/1 var(--font-display); opacity: .45; }.quote-stage blockquote { margin: 1rem auto 2rem; font: clamp(2rem, 5vw, 4.4rem)/1.5 var(--font-display); }.quote-credit { display: grid; gap: .15rem; margin-bottom: 2rem; color: var(--muted); }.quote-credit strong { color: var(--ink); }.quote-disclaimer { margin-top: 3rem; color: var(--muted); text-align: center; font-size: .82rem; }
 .article-page { max-width: 900px; }.article-page section { padding: 2rem 0; border-top: 1px solid var(--border); }.article-page section p { color: var(--muted); }
+.eyebrow { color: var(--umber); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.simulator-layout { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(340px,.95fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.simulator-panel { padding: clamp(2rem,5vw,4rem) clamp(1.5rem,5vw,5rem) 4rem 0; border-right: 1px solid var(--border); }
+.simulator-panel > p { max-width: 54ch; color: var(--muted); }
+.simulator-controls { display: grid; gap: 1.4rem; margin-top: 2rem; }
+.simulator-control { display: grid; gap: .35rem; }
+.simulator-control > span { display: flex; justify-content: space-between; gap: 1rem; }
+.simulator-control output { min-width: 2.5rem; color: var(--umber); font-weight: 700; text-align: right; }
+.simulator-control .axis-ends { color: var(--muted); font-size: .78rem; }
+.simulator-control .axis-ends i { font-style: normal; }
+.simulator-control input { width: 100%; accent-color: var(--blue); cursor: pointer; }
+.simulator-result { display: grid; align-content: start; gap: 2rem; padding: clamp(2rem,5vw,4rem) 0 4rem clamp(1.5rem,5vw,5rem); }
+.simulator-chart { height: 330px; }.simulator-chart p { color: var(--muted); }
+.simulator-matches { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+.simulator-matches li { border-bottom: 1px solid var(--border); }
+.simulator-matches a { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0; color: var(--ink); text-decoration: none; }
+.simulator-matches span { color: var(--blue); font-weight: 700; }
 @media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; }.coordinate-art { min-height: 300px; }.test-list { grid-template-columns: 1fr 1fr; }.test-row { min-height: 130px; border-bottom: 1px solid var(--border); }.test-row:last-child { grid-column: 1 / -1; }.lexicon-list { grid-template-columns: 1fr; }.lexicon-entry,.lexicon-entry:nth-child(even) { padding: 1.75rem 0; border-left: 0; } }
-@media (max-width: 620px) { .coordinate-art { min-height: 0; }.test-list { grid-template-columns: 1fr; }.test-row:last-child { grid-column: auto; }.lexicon-tools { grid-template-columns: 1fr; }.quote-page { padding-top: 3rem; } }
+@media (max-width: 820px) { .simulator-layout { grid-template-columns: 1fr; }.simulator-panel { padding-right: 0; border-right: 0; border-bottom: 1px solid var(--border); }.simulator-result { padding-left: 0; } }
+@media (max-width: 620px) { .coordinate-art { min-height: 0; }.test-list { grid-template-columns: 1fr; }.test-row:last-child { grid-column: auto; }.lexicon-tools { grid-template-columns: 1fr; }.quote-page { padding-top: 3rem; }.simulator-chart { height: 280px; } }
 @media (min-width: 981px) { .hero-grid h1 { white-space: nowrap; font-size: clamp(3rem, 5.2vw, 5.25rem); } }
 

@@ -32,7 +32,7 @@ test('homepage extends the approved hero with a ten-philosophy spectrum', async 
   const html = await read('index.html');
   assert.match(html, /class="philosophy-spectrum"/);
   assert.match(html, /十种人生哲学，一组思想坐标/);
-  ['philosophy/', 'lexicon.html', 'simulator.html'].forEach((href) => assert.match(html, new RegExp(`href="${href.replace('.', '\\.')}"`)));
+  ['philosophy/index.html', 'lexicon.html', 'simulator.html'].forEach((href) => assert.match(html, new RegExp(`href="${href.replace('.', '\\.')}"`)));
   ['荒诞主义', '伊壁鸠鲁主义', '人文主义', '享乐主义'].forEach((name) => assert.match(html, new RegExp(name)));
 });
 

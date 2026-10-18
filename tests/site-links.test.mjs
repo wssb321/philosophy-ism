@@ -54,3 +54,16 @@ test('published HTML contains no empty links or unfinished placeholders', async 
   }
   assert.deepEqual(problems, []);
 });
+
+test('local navigation links target concrete files instead of directory listings', async () => {
+  const problems = [];
+  for (const file of await htmlFiles()) {
+    const source = await readFile(file, 'utf8');
+    for (const [, href] of source.matchAll(/href=["']([^"']+)["']/g)) {
+      if (/^(?:https?:|mailto:|tel:|data:|#|\/_vercel\/)/.test(href)) continue;
+      const [pathname] = href.split('#');
+      if (pathname.endsWith('/')) problems.push(`${file}: directory href ${href}`);
+    }
+  }
+  assert.deepEqual(problems, []);
+});

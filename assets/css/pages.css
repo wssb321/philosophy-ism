@@ -5,6 +5,11 @@
 .page-hero h1 { max-width: 15ch; }
 .page-hero p { max-width: 58ch; color: var(--muted); font-size: 1.1rem; }
 
+.local-file-warning { position: relative; z-index: 30; display: grid; gap: .25rem; padding: .8rem var(--gutter); border-bottom: 1px solid #caa27f; background: #fff1dd; color: #5f371f; text-align: center; }
+.local-file-warning[hidden] { display: none; }
+.local-file-warning strong { font-family: var(--font-display); }
+.local-file-warning span { font-size: .86rem; }
+
 .placeholder {
   min-height: 40vh;
   display: grid;

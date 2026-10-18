@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="assets/css/pages.css">
 <script defer src="/_vercel/insights/script.js"></script></head>
 <body>
+  <aside class="local-file-warning" data-local-file-warning tabindex="-1" hidden>
+    <strong>当前是文件预览模式，测评脚本无法正常加载。</strong>
+    <span>请关闭此页面，然后双击项目根目录中的“启动网站.cmd”。</span>
+  </aside>
   <main>
     <section class="home-hero">
       <img class="hero-landscape" src="assets/images/home/hero-landscape.png" alt="水墨群山间，一位思考者站在山崖远望">
@@ -27,11 +31,11 @@
 
     <section class="test-band" id="tests" aria-label="五组哲学测试">
       <div class="container test-list">
-        <a href="mindset/" class="test-card"><span class="test-number">01</span><strong>心智认知</strong><img src="assets/images/home/icon-mindset.png" alt="" aria-hidden="true"><p>你如何思考、感知与判断世界？</p><em>30 题 · 约 8 分钟</em><b aria-hidden="true">→</b></a>
-        <a href="philosophy/" class="test-card"><span class="test-number umber-text">02</span><strong>人生哲学</strong><img src="assets/images/home/icon-philosophy.png" alt="" aria-hidden="true"><p>你如何理解生命的意义与生活方式？</p><em>36 题 · 约 9 分钟</em><b aria-hidden="true">→</b></a>
-        <a href="metaphysics/" class="test-card"><span class="test-number">03</span><strong>形而上学</strong><img src="assets/images/home/icon-metaphysics.png" alt="" aria-hidden="true"><p>你如何看待现实、存在与终极问题？</p><em>32 题 · 约 8 分钟</em><b aria-hidden="true">→</b></a>
-        <a href="politics/" class="test-card"><span class="test-number umber-text">04</span><strong>政治理念</strong><img src="assets/images/home/icon-politics.png" alt="" aria-hidden="true"><p>你如何理解个体、社会与权力的关系？</p><em>40 题 · 约 10 分钟</em><b aria-hidden="true">→</b></a>
-        <a href="ethics/" class="test-card"><span class="test-number">05</span><strong>道德伦理</strong><img src="assets/images/home/icon-ethics.png" alt="" aria-hidden="true"><p>你如何判断善恶、责任与应然的生活？</p><em>40 题 · 约 10 分钟</em><b aria-hidden="true">→</b></a>
+        <a href="mindset/index.html" class="test-card"><span class="test-number">01</span><strong>心智认知</strong><img src="assets/images/home/icon-mindset.png" alt="" aria-hidden="true"><p>你如何思考、感知与判断世界？</p><em>30 题 · 约 8 分钟</em><b aria-hidden="true">→</b></a>
+        <a href="philosophy/index.html" class="test-card"><span class="test-number umber-text">02</span><strong>人生哲学</strong><img src="assets/images/home/icon-philosophy.png" alt="" aria-hidden="true"><p>你如何理解生命的意义与生活方式？</p><em>36 题 · 约 9 分钟</em><b aria-hidden="true">→</b></a>
+        <a href="metaphysics/index.html" class="test-card"><span class="test-number">03</span><strong>形而上学</strong><img src="assets/images/home/icon-metaphysics.png" alt="" aria-hidden="true"><p>你如何看待现实、存在与终极问题？</p><em>32 题 · 约 8 分钟</em><b aria-hidden="true">→</b></a>
+        <a href="politics/index.html" class="test-card"><span class="test-number umber-text">04</span><strong>政治理念</strong><img src="assets/images/home/icon-politics.png" alt="" aria-hidden="true"><p>你如何理解个体、社会与权力的关系？</p><em>40 题 · 约 10 分钟</em><b aria-hidden="true">→</b></a>
+        <a href="ethics/index.html" class="test-card"><span class="test-number">05</span><strong>道德伦理</strong><img src="assets/images/home/icon-ethics.png" alt="" aria-hidden="true"><p>你如何判断善恶、责任与应然的生活？</p><em>40 题 · 约 10 分钟</em><b aria-hidden="true">→</b></a>
       </div>
     </section>
 
@@ -59,12 +63,24 @@
         <a href="lexicon.html#hedonism" class="spectrum-item"><span>04</span><h3>享乐主义</h3><p>认真衡量愉悦、痛苦与生活质量之间的关系。</p><b aria-hidden="true">→</b></a>
       </div>
       <div class="container spectrum-actions" aria-label="继续探索人生哲学">
-        <a class="button" href="philosophy/">开始人生哲学测试</a>
+        <a class="button" href="philosophy/index.html">开始人生哲学测试</a>
         <a class="button secondary" href="lexicon.html">浏览主义百科</a>
         <a class="text-link" href="simulator.html">打开立场模拟器 <span aria-hidden="true">→</span></a>
       </div>
     </section>
   </main>
+  <script>
+    if (location.protocol === 'file:') {
+      const warning = document.querySelector('[data-local-file-warning]');
+      warning.hidden = false;
+      document.addEventListener('click', (event) => {
+        const link = event.target.closest('a[href]');
+        if (!link || link.getAttribute('href').startsWith('#')) return;
+        event.preventDefault();
+        warning.focus();
+      });
+    }
+  </script>
   <script type="module" src="assets/js/site.js"></script>
 </body>
 </html>

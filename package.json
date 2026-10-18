@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "start": "node tools/serve.mjs --open",
     "test": "node --test --test-isolation=none"
   },
   "dependencies": {

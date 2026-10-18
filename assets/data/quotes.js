@@ -1,0 +1,21 @@
+export const QUOTES = [
+  { text: '未经省察的人生是不值得过的。', author: '苏格拉底', source: '柏拉图《申辩篇》' },
+  { text: '幸福取决于我们自己。', author: '亚里士多德', source: '《尼各马可伦理学》相关思想，意译', translation: '意译' },
+  { text: '困扰人的并非事物本身，而是人对事物的判断。', author: '爱比克泰德', source: '《手册》' },
+  { text: '你有力量支配自己的心，而不是外在事件。', author: '马可·奥勒留', source: '《沉思录》相关思想，意译', translation: '意译' },
+  { text: '人被判定为自由。', author: '让-保罗·萨特', source: '《存在主义是一种人道主义》' },
+  { text: '必须想象西西弗是幸福的。', author: '阿尔贝·加缪', source: '《西西弗神话》' },
+  { text: '我思，故我在。', author: '勒内·笛卡尔', source: '《方法谈》' },
+  { text: '心灵并非有待填满的容器，而是有待点燃的火焰。', author: '普鲁塔克', source: '《论倾听》相关思想，意译', translation: '意译' },
+  { text: '要敢于运用你自己的理智。', author: '伊曼努尔·康德', source: '《回答这个问题：什么是启蒙？》' },
+  { text: '习惯是人生的伟大指南。', author: '大卫·休谟', source: '《人类理解研究》相关思想，意译', translation: '意译' },
+  { text: '知识就是力量。', author: '弗朗西斯·培根', source: '《沉思录》相关表述' },
+  { text: '自由意味着责任。', author: '乔治·萧伯纳', source: '常见格言，意译', translation: '意译' },
+  { text: '我们无法预先找到生命的意义，而要在生活中形成它。', author: '西蒙娜·德·波伏瓦', source: '存在主义相关思想，意译', translation: '意译' },
+  { text: '哲学始于惊异。', author: '柏拉图', source: '《泰阿泰德篇》' },
+  { text: '每个人都应当被当作目的，而不只是手段。', author: '伊曼努尔·康德', source: '《道德形而上学奠基》相关思想，意译', translation: '意译' },
+  { text: '我们通过行动成为我们反复所做的那种人。', author: '威尔·杜兰特', source: '对亚里士多德伦理学的概括，意译', translation: '意译' },
+  { text: '思想的价值，要在它带来的差异中理解。', author: '威廉·詹姆斯', source: '《实用主义》相关思想，意译', translation: '意译' },
+  { text: '正义是社会制度的首要价值。', author: '约翰·罗尔斯', source: '《正义论》' },
+];
+

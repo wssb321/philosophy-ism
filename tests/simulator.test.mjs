@@ -22,3 +22,15 @@ test('matches are recalculated and reordered from the live state', () => {
     .reduce((result, [dimensionId, value]) => updateSimulation(result.scores, dimensionId, value, PHILOSOPHY_TEST.ideologies), { scores: state });
   assert.equal(towardExistentialism.matches[0].id, 'existentialism');
 });
+
+test('each new philosophy prototype is its own closest simulation match', () => {
+  for (const id of ['absurdism', 'epicureanism', 'humanism', 'hedonism']) {
+    const ideology = PHILOSOPHY_TEST.ideologies.find((item) => item.id === id);
+    assert.ok(ideology, `missing ${id}`);
+    let state = createSimulationState(PHILOSOPHY_TEST.dimensions);
+    for (const [dimensionId, value] of Object.entries(ideology.scores)) {
+      state = updateSimulation(state, dimensionId, value, PHILOSOPHY_TEST.ideologies).scores;
+    }
+    assert.equal(updateSimulation(state, 'essence-create', state['essence-create'], PHILOSOPHY_TEST.ideologies).matches[0].id, id);
+  }
+});

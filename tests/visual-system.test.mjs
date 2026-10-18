@@ -27,3 +27,11 @@ test('site shell keeps six primary links, accessible controls, and disclaimer', 
   assert.match(source, /aria-controls="site-nav"/);
   assert.match(source, /本测试为趣味测评，无学术效力/);
 });
+
+test('homepage extends the approved hero with a ten-philosophy spectrum', async () => {
+  const html = await read('index.html');
+  assert.match(html, /class="philosophy-spectrum"/);
+  assert.match(html, /十种人生哲学，一组思想坐标/);
+  ['philosophy/', 'lexicon.html', 'simulator.html'].forEach((href) => assert.match(html, new RegExp(`href="${href.replace('.', '\\.')}"`)));
+  ['荒诞主义', '伊壁鸠鲁主义', '人文主义', '享乐主义'].forEach((name) => assert.match(html, new RegExp(name)));
+});

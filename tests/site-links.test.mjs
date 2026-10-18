@@ -1,10 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readdir, readFile, stat } from 'node:fs/promises';
-import { dirname, extname, join, resolve } from 'node:path';
+import { basename, dirname, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { LEXICON_ENTRIES } from '../assets/data/lexicon.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const lexiconIds = new Set(LEXICON_ENTRIES.map(({ id }) => id));
 
 async function htmlFiles(directory = ROOT) {
   const entries = await readdir(directory, { withFileTypes:true });
@@ -25,17 +27,18 @@ async function targetFile(from, href) {
   return target;
 }
 
-test('all local HTML links resolve and fragment targets exist', async () => {
+test('all local HTML links and media sources resolve and fragment targets exist', async () => {
   const problems = [];
   for (const file of await htmlFiles()) {
     const source = await readFile(file, 'utf8');
-    for (const [, href] of source.matchAll(/href=["']([^"']*)["']/g)) {
+    for (const [, attribute, href] of source.matchAll(/(href|src)=["']([^"']*)["']/g)) {
       if (!href || /^(?:https?:|mailto:|tel:|data:)/.test(href)) continue;
       const [pathname, fragment] = href.split('#');
       const target = await targetFile(file, href);
       try {
         const targetSource = await readFile(target, 'utf8');
-        if (fragment && !new RegExp(`\\bid=["']${fragment.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}["']`).test(targetSource)) problems.push(`${file}: missing #${fragment} in ${target}`);
+        const dynamicLexiconAnchor = basename(target) === 'lexicon.html' && lexiconIds.has(fragment);
+        if (attribute === 'href' && fragment && !dynamicLexiconAnchor && !new RegExp(`\\bid=["']${fragment.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}["']`).test(targetSource)) problems.push(`${file}: missing #${fragment} in ${target}`);
       } catch { problems.push(`${file}: missing ${pathname || target}`); }
     }
   }

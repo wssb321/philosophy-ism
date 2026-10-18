@@ -27,6 +27,10 @@ export const PHILOSOPHY_TEST = {
     {id:'pragmatism',name:'实用主义',lexiconId:'pragmatism',description:'通过经验、探究与实际后果检验观念。',scores:{'essence-create':70,'objective-open':68,'accept-transform':78,'ideal-practical':92,'condition-agency':72,'stable-becoming':76}},
     {id:'essentialism',name:'本质主义',lexiconId:'essentialism',description:'强调定义、稳定特征与事物的核心性质。',scores:{'essence-create':8,'objective-open':28,'accept-transform':38,'ideal-practical':32,'condition-agency':35,'stable-becoming':12}},
     {id:'idealism',name:'理想主义',lexiconId:'philosophical-idealism',description:'以原则、理想与应然目标审视现实并指引行动。',scores:{'essence-create':42,'objective-open':25,'accept-transform':72,'ideal-practical':8,'condition-agency':68,'stable-becoming':35}},
+    {id:'absurdism',name:'荒诞主义',lexiconId:'absurdism',description:'直面意义追寻与世界沉默之间的张力，并继续选择和生活。',scores:{'essence-create':82,'objective-open':88,'accept-transform':58,'ideal-practical':55,'condition-agency':72,'stable-becoming':76}},
+    {id:'epicureanism',name:'伊壁鸠鲁主义',lexiconId:'epicureanism',description:'以节制、友谊与免于纷扰的宁静理解良好生活。',scores:{'essence-create':48,'objective-open':48,'accept-transform':22,'ideal-practical':70,'condition-agency':56,'stable-becoming':38}},
+    {id:'humanism',name:'人文主义',lexiconId:'humanism',description:'重视人的尊严、理性、教育与共同改善现实的能力。',scores:{'essence-create':72,'objective-open':42,'accept-transform':82,'ideal-practical':54,'condition-agency':82,'stable-becoming':62}},
+    {id:'hedonism',name:'享乐主义',lexiconId:'hedonism',description:'把愉悦的获得与痛苦的减少作为生活价值的重要尺度。',scores:{'essence-create':58,'objective-open':66,'accept-transform':42,'ideal-practical':86,'condition-agency':64,'stable-becoming':55}},
   ],
 };
 

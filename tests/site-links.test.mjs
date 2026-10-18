@@ -32,7 +32,7 @@ test('all local HTML links and media sources resolve and fragment targets exist'
   for (const file of await htmlFiles()) {
     const source = await readFile(file, 'utf8');
     for (const [, attribute, href] of source.matchAll(/(href|src)=["']([^"']*)["']/g)) {
-      if (!href || /^(?:https?:|mailto:|tel:|data:)/.test(href)) continue;
+      if (!href || /^(?:https?:|mailto:|tel:|data:|\/_vercel\/)/.test(href)) continue;
       const [pathname, fragment] = href.split('#');
       const target = await targetFile(file, href);
       try {

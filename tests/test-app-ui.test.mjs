@@ -24,3 +24,9 @@ test('assessment renderer exposes progress, accessible answers, keyboard help, a
   assert.match(source, /type="radio"/);
   assert.match(source, /ANSWERS\.map/);
 });
+
+test('assessment app removes the previous keyboard listener before results or restart', async () => {
+  const source = await read('assets/js/test-app.js');
+  assert.match(source, /activeTest\?\.destroy\(\)/);
+  assert.match(source, /activeTest\s*=\s*null/);
+});

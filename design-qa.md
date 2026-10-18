@@ -17,3 +17,7 @@
 ## 最终结果
 
 passed
+
+## 全站扩展
+
+首页基准已扩展为整站统一视觉系统。完整页面矩阵、交互验证与修复记录见 `docs/qa/unified-visual-system-ledger.md`；当前无未解决 P0、P1、P2 问题。

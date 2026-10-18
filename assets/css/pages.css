@@ -81,8 +81,8 @@
 .quote-stage { z-index: 1; width: min(100% - (2 * var(--gutter)), 1060px); position: relative; margin-inline: auto; padding-right: min(18vw, 230px); }
 .quote-stage .eyebrow { color: var(--umber); font-size: .78rem; font-weight: 700; letter-spacing: .15em; }
 .quote-mark { height: 76px; margin: 0; color: var(--umber); font: 8.5rem/1 var(--font-display); opacity: .5; }
-.quote-stage blockquote { max-width: 18ch; margin: .6rem 0 2.4rem; font: clamp(2.2rem, 5.1vw, 4.8rem)/1.42 var(--font-display); transition: opacity var(--motion-fast), transform var(--motion-fast); }
-.quote-stage.is-changing blockquote { opacity: .35; transform: translateY(5px); }
+.quote-text { max-width: 18ch; margin: .6rem 0 2.4rem; font: 700 clamp(2.2rem, 5.1vw, 4.8rem)/1.42 var(--font-display); transition: opacity var(--motion-fast), transform var(--motion-fast); }
+.quote-stage.is-changing .quote-text { opacity: .35; transform: translateY(5px); }
 .quote-credit { display: grid; gap: .15rem; margin-bottom: 2rem; color: var(--muted); }.quote-credit strong { color: var(--ink); font-family: var(--font-display); font-size: 1.1rem; }.quote-disclaimer { z-index: 1; position: relative; margin: 2rem auto 0; color: var(--muted); font-size: .78rem; }
 
 .article-page { max-width: 1120px; }
@@ -154,7 +154,7 @@
   .entry-body { padding-left: 0; }
   .quote-page { min-height: calc(100vh - 60px); }
   .quote-background { object-position: 62% center; opacity: .13; }
-  .quote-stage blockquote { font-size: clamp(2rem, 10vw, 3rem); }
+  .quote-text { font-size: clamp(2rem, 10vw, 3rem); }
   .quote-axis { right: -60vw; width: 120vw; }
   .article-intro { min-height: 420px; }
   .article-sections section { grid-template-columns: 42px minmax(0, 1fr); gap: 1rem; }

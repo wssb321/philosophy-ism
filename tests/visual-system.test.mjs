@@ -58,3 +58,13 @@ test('lexicon and quote renderers expose editorial state hooks', async () => {
   assert.match(quoteSource, /\[data-new-quote\]/);
   assert.match(quoteSource, /is-changing/);
 });
+
+test('tool pages expose the approved workbench and private archive shells', async () => {
+  const [simulator, history] = await Promise.all(['simulator.html', 'history.html'].map(read));
+  assert.match(simulator, /<body class="simulator-page">/);
+  assert.match(simulator, /class="container simulator-workbench" data-simulator/);
+  assert.match(simulator, /assets\/js\/simulator\.js/);
+  assert.match(history, /<body class="history-page">/);
+  assert.match(history, /class="container history-archive" data-history/);
+  assert.match(history, /assets\/js\/history\.js/);
+});

@@ -13,12 +13,14 @@ export function toHistoryViewModel(record) {
   const scores = Object.entries(record?.scores ?? {})
     .filter(([id, value]) => id in DIMENSION_LABELS && Number.isFinite(value))
     .map(([id, value]) => ({ id, label: DIMENSION_LABELS[id], value }));
+  const id = String(record?.id ?? '');
   return {
-    id: String(record?.id ?? ''),
+    id,
     testTitle: TEST_TITLES[record?.testId] ?? '哲学测评',
     completedAt: Number(record?.completedAt) || 0,
     resultName: String(record?.resultName ?? '维度坐标'),
     scores,
+    href: id ? `results.html?record=${encodeURIComponent(id)}` : '',
   };
 }
 
@@ -43,9 +45,19 @@ function element(tag, className, text) {
 function createHistoryCard(model) {
   const article = element('article', 'history-card');
   article.dataset.recordId = model.id;
+  if (model.href) article.dataset.viewHref = model.href;
   const header = element('header', 'history-card-header');
+  header.append(element('span', 'history-card-index', '记录'));
   const meta = element('div');
-  meta.append(element('p', 'eyebrow', model.testTitle), element('h2', '', model.resultName));
+  const title = element('h2');
+  if (model.href) {
+    const titleLink = element('a', '', model.resultName);
+    titleLink.href = model.href;
+    title.append(titleLink);
+  } else {
+    title.textContent = model.resultName;
+  }
+  meta.append(element('p', 'eyebrow', model.testTitle), title);
   const time = element('time', '', new Intl.DateTimeFormat('zh-CN', { dateStyle:'medium', timeStyle:'short' }).format(new Date(model.completedAt)));
   time.dateTime = new Date(model.completedAt).toISOString();
   header.append(meta, time);
@@ -55,16 +67,23 @@ function createHistoryCard(model) {
     item.append(element('span', '', score.label), element('strong', '', String(score.value)));
     scores.append(item);
   }
+  article.append(header, scores);
+  if (model.href) {
+    const view = element('a', 'history-view', '查看完整结果 →');
+    view.href = model.href;
+    article.append(view);
+  }
   const remove = element('button', 'history-remove', '删除这条记录');
   remove.type = 'button';
   remove.dataset.removeRecord = model.id;
-  article.append(header, scores, remove);
+  article.append(remove);
   return article;
 }
 
 export function renderHistory(root, records) {
   const models = sortHistoryRecords(records).map(toHistoryViewModel);
   const toolbar = element('div', 'history-toolbar');
+  toolbar.setAttribute('aria-label', '历史记录工具栏');
   toolbar.append(element('p', '', models.length ? `共 ${models.length} 条本地记录` : '还没有测试记录'));
   if (models.length) {
     const clear = element('button', 'button secondary', '清空全部');
@@ -91,6 +110,8 @@ function mountHistory(root) {
   root.addEventListener('click', (event) => {
     const remove = event.target.closest('[data-remove-record]');
     if (remove) { store.removeHistory(remove.dataset.removeRecord); refresh(); return; }
+    const card = event.target.closest('[data-view-href]');
+    if (card && !event.target.closest('a')) { globalThis.location.href = card.dataset.viewHref; return; }
     if (event.target.closest('[data-clear-history]')) {
       const result = clearHistoryWithConfirmation(store);
       if (result.ok) refresh();

@@ -19,11 +19,12 @@ function sliderMarkup(dimension) {
 
 function mountSimulator(root) {
   let state = createSimulationState(PHILOSOPHY_TEST.dimensions);
-  root.innerHTML = `<div class="simulator-layout"><section class="simulator-panel" aria-labelledby="sim-controls-title"><h2 id="sim-controls-title">调整思想坐标</h2><p>拖动六条轴，观察与思想流派的距离如何变化。模拟结果不会写入测试历史。</p><div class="simulator-controls">${PHILOSOPHY_TEST.dimensions.map(sliderMarkup).join('')}</div></section><aside class="simulator-result" aria-live="polite"><div class="simulator-chart"><canvas aria-label="模拟思想坐标雷达图"></canvas><p data-chart-fallback hidden>图表未能加载，右侧匹配列表仍会实时更新。</p></div><div><p class="eyebrow">实时接近度</p><ol data-sim-matches class="simulator-matches"></ol></div></aside></div>`;
+  root.innerHTML = `<div class="simulator-layout"><section class="simulator-panel" aria-labelledby="sim-controls-title"><p class="panel-index">01 · 输入坐标</p><h2 id="sim-controls-title">调整思想坐标</h2><p>拖动六条轴，观察与思想流派的距离如何变化。模拟结果不会写入测试历史。</p><div class="simulator-controls">${PHILOSOPHY_TEST.dimensions.map(sliderMarkup).join('')}</div></section><aside class="simulator-result" aria-live="polite"><header class="simulator-result-head"><p class="panel-index">02 · 即时映射</p><p>当前最接近 <strong data-leading-match>—</strong></p></header><div class="simulator-chart"><canvas aria-label="模拟思想坐标雷达图"></canvas><p data-chart-fallback hidden>图表未能加载，下方匹配列表仍会实时更新。</p></div><div><p class="eyebrow">实时接近度</p><ol data-sim-matches class="simulator-matches"></ol></div></aside></div>`;
 
   const matchList = root.querySelector('[data-sim-matches]');
   const canvas = root.querySelector('canvas');
   const fallback = root.querySelector('[data-chart-fallback]');
+  const leadingMatch = root.querySelector('[data-leading-match]');
   let chart = null;
 
   try {
@@ -36,6 +37,7 @@ function mountSimulator(root) {
 
   const render = () => {
     const matches = calculateMatches(state, PHILOSOPHY_TEST.ideologies).slice(0, 4);
+    leadingMatch.textContent = `${matches[0].name} · ${Math.round(matches[0].match)}%`;
     matchList.replaceChildren(...matches.map((match) => {
       const item = document.createElement('li');
       const link = document.createElement('a');

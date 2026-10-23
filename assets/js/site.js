@@ -1,3 +1,4 @@
+import { inject } from '@vercel/analytics';
 import { initTheme, setTheme } from './theme.js';
 
 const NAV_ITEMS = [
@@ -63,6 +64,7 @@ export function initSiteShell() {
 }
 
 if (typeof document !== 'undefined') {
+  inject();
   initTheme();
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSiteShell, { once: true });
   else initSiteShell();
